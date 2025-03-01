@@ -1,9 +1,10 @@
 import streamlit as st
 import numpy as np
-import joblib
+import pickle
 
-# Load trained model
-model = joblib.load("models/xgboost_model.pkl")
+# Load trained model using pickle
+with open("models/rondomforest.pkl", "rb") as model_file:
+    model = pickle.load(model_file)
 
 st.title("🎓 Student Dropout Prediction App")
 
@@ -27,7 +28,7 @@ features = [
 # Collect input values
 input_data = []
 for feature in features:
-    value = st.number_input(f"{feature}:", min_value=0.0, max_value=100.0, step=0.1)
+    value = st.number_input(f"{feature}:", min_value=0.0, max_value=10000.0, step=0.1)
     input_data.append(value)
 
 # Predict button
